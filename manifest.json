@@ -3,6 +3,12 @@
   "name": "Web Scraper",
   "version": "1.0",
   "permissions": ["downloads"],
+  "content_scripts": [
+    {
+      "matches": ["https://www.borrowme.com/*"],
+      "js": ["contentScript.js"]
+    }
+  ],
   "action": {
     "default_popup": "popup.html",
     "default_icon": {

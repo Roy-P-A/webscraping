@@ -27,8 +27,11 @@ function downloadText(content, filename) {
 
 // Scrape images and text
 function scrapeData() {
+  // console.log("Hello");
   const images = Array.from(document.querySelectorAll("img")).map(image => image.src);
   const text = document.querySelector("body").innerText;
+
+   
 
   // Download images
   images.forEach((imageUrl, index) => {
@@ -39,6 +42,10 @@ function scrapeData() {
   // Download text content
   const textFilename = "text_content.txt";
   downloadText(text, textFilename);
+
+  const headingName = document.querySelector("item_name").innerText;
+  chrome.runtime.sendMessage({ message: "scraped_data", textContent: text });
+ 
 }
 
 // Listen for messages from the background script
