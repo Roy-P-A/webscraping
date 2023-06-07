@@ -1,10 +1,44 @@
-*{
-    padding: 0;
-    margin: 0;
+* {
+  padding: 0;
+  margin: 0;
 }
 
-body{
-    background-color: aliceblue;
-    width: 200px;
-    height: 400px;
+body {
+  background-color: FFFFFF;
+  width: 300px;
+  height: 350px;
+  border-radius: 10px;
+  padding: 10px;
+  align-content: center;
+}
+.header {
+  color: #272731;
+  font-weight: bold;
+  font-size: 15px;
+  text-align: center;
+}
+.scrap-parent {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.scrapeButton {
+  text-align: center;
+  border-radius: 5px;
+  background-color: #7479fd;
+  color: #fdf6ff;
+  font-size: 15px;
+  width: 100px;
+  height: 25px;
+}
+
+.scrapeButton:hover {
+  background-color: #3c43fc;
+  transition: 0.7s;
+}
+
+.scrapeButton:hover {
+  background-color: #040dfb;
+  transition: 0.7s;
 }
