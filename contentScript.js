@@ -15,6 +15,16 @@ function downloadImage(url, filename) {
 }
 
 // Helper function to download text content
+// function downloadText(content, filename) {
+//   const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
+//   const url = URL.createObjectURL(blob);
+//   const link = document.createElement("a");
+//   link.href = url;
+//   link.download = filename;
+//   link.click();
+//   URL.revokeObjectURL(url);
+// }
+
 function downloadText(content, filename) {
   const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
   const url = URL.createObjectURL(blob);
@@ -34,17 +44,22 @@ function scrapeData() {
    
 
   // Download images
-  images.forEach((imageUrl, index) => {
-    const filename = `image_${index + 1}.jpg`;
-    downloadImage(imageUrl, filename);
-  });
+  // images.forEach((imageUrl, index) => {
+  //   const filename = `image_${index + 1}.jpg`;
+  //   downloadImage(imageUrl, filename);
+  // });
 
   // Download text content
   const textFilename = "text_content.txt";
   downloadText(text, textFilename);
 
-  const headingName = document.querySelector("item_name").innerText;
-  chrome.runtime.sendMessage({ message: "scraped_data", textContent: text });
+  var headingName = document.querySelector("item_name").innerText;
+  const data = {
+    title: 'hello',
+   
+    // Add more data points as needed
+  };
+  chrome.runtime.sendMessage({ message: "data_extracted", data });
  
 }
 

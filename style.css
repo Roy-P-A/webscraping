@@ -30,7 +30,9 @@ body {
   color: #fdf6ff;
   font-size: 15px;
   width: 100px;
-  height: 25px;
+  height: 30px;
+  display: inline-block;
+  vertical-align: middle;
 }
 
 .scrapeButton:hover {
