@@ -13,17 +13,6 @@ function downloadImage(url, filename) {
     });
 }
 
-// Helper function to download text content
-// function downloadText(content, filename) {
-//   const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
-//   const url = URL.createObjectURL(blob);
-//   const link = document.createElement("a");
-//   link.href = url;
-//   link.download = filename;
-//   link.click();
-//   URL.revokeObjectURL(url);
-// }
-
 function downloadText(content, filename) {
   const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
   const url = URL.createObjectURL(blob);
@@ -37,9 +26,9 @@ function downloadText(content, filename) {
 // Scrape images and text
 function scrapeData() {
   // console.log("Hello");
-  // const images = Array.from(document.querySelectorAll("img")).map(
-  //   (image) => image.src
-  // );
+  const images = Array.from(
+    document.querySelectorAll(".item-slider__image")
+  ).map((image) => image.src);
   //const text = document.querySelector("body").innerText;
 
   const text = "Hello1";
@@ -52,48 +41,93 @@ function scrapeData() {
   }
   var condition = "";
   if (document.querySelector(".item__condition").innerText) {
-    condition =
-      document.querySelector(".item__condition").innerText;
+    condition = document.querySelector(".item__condition").innerText;
   } else {
     condition = "";
   }
-  var age ="";
-  if(document.querySelector(".item__age").innerText){
+  var age = "";
+  if (document.querySelector(".item__age").innerText) {
     age = document.querySelector(".item__age").innerText;
-  }else{
+  } else {
     age = "";
   }
-  var description ="";
-  if(document.querySelector(".item__description").innerText){
-    description =  "Description: " +  document.querySelector(".item__description").innerText;
-  }else{
+  var description = "";
+  if (document.querySelector(".item__description").innerText) {
+    description =
+      "Description: " + document.querySelector(".item__description").innerText;
+  } else {
     description = "Description : ";
   }
-  var rate ="";
-  if(document.querySelector(".item-rate__rate").innerText){
-    rate =  "Rate: " +  document.querySelector(".item-rate__rate").innerText;
-  }else{
+  var rate = "";
+  if (document.querySelector(".item-rate__rate").innerText) {
+    rate = "Rate: " + document.querySelector(".item-rate__rate").innerText;
+  } else {
     rate = "Rate: ";
   }
 
-  var renterName ="";
-  if(document.querySelector(".item-lender__name").innerText){
-    renterName =  "Renter Name: " +  document.querySelector(".item-lender__name").innerText;
-  }else{
+  var renterName = "";
+  if (document.querySelector(".item-lender__name").innerText) {
+    renterName =
+      "Renter Name: " + document.querySelector(".item-lender__name").innerText;
+  } else {
     renterName = "Renter Name: ";
   }
 
+  let imageName ="";
+  // if (document.querySelector(".item-slider__image").src) {
+  //   imageName = "Image: " + document.querySelector(".item-slider__image").src;
+  // } else {
+  //   imageName = "Image: ";
+  // }
 
+  const tempElement = document.createElement("div");
+  tempElement.innerHTML = document.querySelector("body").innerHTML;;
+
+  // Get all the image elements
+  const imageElements = tempElement.querySelectorAll(".item-slider__slide img");
+
+  // Extract the image source URLs
   
+  const imageSrcs = Array.from(imageElements).map(
+    imageElement => imageElement.src
+      
+      
+  );
+  // const imageSrcs = Array.from(imageElements).map(
+  //   (imageElement) => {
+
+  //       // imageName = imageElement.src;
+  //       return imageElement.src;
+  //   }
+      
+      
+  // );
+
+  for (let i of imageSrcs) {
+    imageName += "\n\n" + i;
+  }
 
   var data = "";
-  data = headingName + "\n\n"+ condition + "\n\n" + age + "\n\n" + description + "\n\n" + rate + "\n\n" + renterName;
+  data =
+    headingName +
+    "\n\n" +
+    condition +
+    "\n\n" +
+    age +
+    "\n\n" +
+    description +
+    "\n\n" +
+    rate +
+    "\n\n" +
+    renterName +
+    "\n\n" +
+    imageName;
 
   // Download images
-  // images.forEach((imageUrl, index) => {
-  //   const filename = `image_${index + 1}.jpg`;
-  //   downloadImage(imageUrl, filename);
-  // });
+  images.forEach((imageUrl, index) => {
+    const filename = `image_${index + 1}.jpg`;
+    downloadImage(imageUrl, filename);
+  });
 
   // Download text content
   const textFilename = "text_content.txt";
