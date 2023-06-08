@@ -8,3 +8,16 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   });
 });
+
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+  if (request.message === "update_popup") {
+    // Handle the message to update the DOM in the popup.html
+
+    // Access the received data
+    const receivedData = request.data;
+
+    // Update the DOM of the popup.html
+    const dataContainer = document.getElementById("data-container");
+    dataContainer.textContent = receivedData;
+  }
+});

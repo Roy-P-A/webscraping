@@ -13,6 +13,45 @@ function downloadImage(url, filename) {
     });
 }
 
+// function downloadImage(url, filename) {
+//   fetch(url)
+//     .then((response) => response.arrayBuffer())
+//     .then((buffer) => {
+//       const blob = new Blob([buffer], { type: "image/png" });
+//       const url = URL.createObjectURL(blob);
+//       const link = document.createElement("a");
+//       link.href = url;
+//       link.download = filename;
+//       link.click();
+//       URL.revokeObjectURL(url);
+//     })
+//     .catch((error) => {
+//       console.error('Error downloading image:', error);
+//     });
+// }
+
+function downloadImage(url, filename) {
+  fetch(url, {
+    headers: {
+      Accept:
+        "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+    },
+  })
+    .then((response) => response.arrayBuffer())
+    .then((buffer) => {
+      const blob = new Blob([buffer], { type: "image/png" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = filename;
+      link.click();
+      URL.revokeObjectURL(url);
+    })
+    .catch((error) => {
+      console.error("Error downloading image:", error);
+    });
+}
+
 function downloadText(content, filename) {
   const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
   const url = URL.createObjectURL(blob);
@@ -29,9 +68,6 @@ function scrapeData() {
   const images = Array.from(
     document.querySelectorAll(".item-slider__image")
   ).map((image) => image.src);
-  //const text = document.querySelector("body").innerText;
-
-  const text = "Hello1";
 
   var headingName = "";
   if (document.querySelector(".item__name").innerText) {
@@ -73,35 +109,16 @@ function scrapeData() {
     renterName = "Renter Name: ";
   }
 
-  let imageName ="";
-  // if (document.querySelector(".item-slider__image").src) {
-  //   imageName = "Image: " + document.querySelector(".item-slider__image").src;
-  // } else {
-  //   imageName = "Image: ";
-  // }
+  let imageName = "";
 
   const tempElement = document.createElement("div");
-  tempElement.innerHTML = document.querySelector("body").innerHTML;;
+  tempElement.innerHTML = document.querySelector("body").innerHTML;
 
-  // Get all the image elements
   const imageElements = tempElement.querySelectorAll(".item-slider__slide img");
 
-  // Extract the image source URLs
-  
   const imageSrcs = Array.from(imageElements).map(
-    imageElement => imageElement.src
-      
-      
+    (imageElement) => imageElement.src
   );
-  // const imageSrcs = Array.from(imageElements).map(
-  //   (imageElement) => {
-
-  //       // imageName = imageElement.src;
-  //       return imageElement.src;
-  //   }
-      
-      
-  // );
 
   for (let i of imageSrcs) {
     imageName += "\n\n" + i;
@@ -123,28 +140,19 @@ function scrapeData() {
     "\n\n" +
     imageName;
 
-  // Download images
-  images.forEach((imageUrl, index) => {
-    const filename = `image_${index + 1}.jpg`;
-    downloadImage(imageUrl, filename);
-  });
-
   // Download text content
   const textFilename = "text_content.txt";
   downloadText(data, textFilename);
 
-  // var headingName = document.querySelector("item_name").innerText;
-  // const data = {
-  //   title: "hello",
+  // Download images
+  imageSrcs.forEach((imageUrl, index) => {
+    const filename = `image_${index + 1}.jpg`;
+    downloadImage(imageUrl.src, filename);
+  });
 
-  //   // Add more data points as needed
-  // };
-  //chrome.runtime.sendMessage({ message: "data_extracted", data });
+  const data1 = "hello"
+  chrome.runtime.sendMessage({ message: "data_extracted", data:data1 });
 
-  // chrome.runtime.sendMessage(
-  //   { Message: "data_extracted" },
-  //   function (response) {}
-  // );
 }
 
 // Listen for messages from the background script

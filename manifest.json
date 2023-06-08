@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Web Scraper",
   "version": "1.0",
-  "permissions": ["downloads","scripting"],
+  "permissions": ["downloads","scripting","tabs","activeTab"],
   "content_scripts": [
     {
       "matches": ["https://www.borrowme.com/*"],
