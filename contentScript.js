@@ -1,6 +1,5 @@
 // contentScript.js
 
-
 function downloadImage(url, filename) {
   fetch(url)
     .then((response) => response.blob())
@@ -45,35 +44,50 @@ function scrapeData() {
 
   const text = "Hello1";
 
-  var headingName ="";
-  if(document.querySelector(".item__name").innerText){
-    headingName =  "Heading:" +  document.querySelector(".item__name").innerText;
-  }else{
+  var headingName = "";
+  if (document.querySelector(".item__name").innerText) {
+    headingName = "Heading: " + document.querySelector(".item__name").innerText;
+  } else {
     headingName = "";
   }
-  var condition ="";
-  if(document.querySelector(".item__name").innerText){
-    condition =  "Heading:" +  document.querySelector(".item__name").innerText;
-  }else{
+  var condition = "";
+  if (document.querySelector(".item__condition").innerText) {
+    condition =
+      document.querySelector(".item__condition").innerText;
+  } else {
     condition = "";
   }
   var age ="";
-  if(document.querySelector(".item__name").innerText){
-    age =  "Heading:" +  document.querySelector(".item__name").innerText;
+  if(document.querySelector(".item__age").innerText){
+    age = document.querySelector(".item__age").innerText;
   }else{
     age = "";
   }
   var description ="";
-  if(document.querySelector(".item__name").innerText){
-    description =  "Heading:" +  document.querySelector(".item__name").innerText;
+  if(document.querySelector(".item__description").innerText){
+    description =  "Description: " +  document.querySelector(".item__description").innerText;
   }else{
-    description = "";
+    description = "Description : ";
   }
+  var rate ="";
+  if(document.querySelector(".item-rate__rate").innerText){
+    rate =  "Rate: " +  document.querySelector(".item-rate__rate").innerText;
+  }else{
+    rate = "Rate: ";
+  }
+
+  var renterName ="";
+  if(document.querySelector(".item-lender__name").innerText){
+    renterName =  "Renter Name: " +  document.querySelector(".item-lender__name").innerText;
+  }else{
+    renterName = "Renter Name: ";
+  }
+
+
   
 
-
-
-
+  var data = "";
+  data = headingName + "\n\n"+ condition + "\n\n" + age + "\n\n" + description + "\n\n" + rate + "\n\n" + renterName;
 
   // Download images
   // images.forEach((imageUrl, index) => {
@@ -83,7 +97,7 @@ function scrapeData() {
 
   // Download text content
   const textFilename = "text_content.txt";
-  downloadText(headingName, textFilename);
+  downloadText(data, textFilename);
 
   // var headingName = document.querySelector("item_name").innerText;
   // const data = {
