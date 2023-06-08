@@ -150,9 +150,8 @@ function scrapeData() {
     downloadImage(imageUrl.src, filename);
   });
 
-  const data1 = "hello"
-  chrome.runtime.sendMessage({ message: "data_extracted", data:data1 });
-
+  const data1 = "Data Scraped";
+  chrome.runtime.sendMessage({ message: "data_extracted", data: data1 });
 }
 
 // Listen for messages from the background script
