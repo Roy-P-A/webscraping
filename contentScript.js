@@ -62,6 +62,16 @@ function downloadText(content, filename) {
   URL.revokeObjectURL(url);
 }
 
+async function performAsyncOperation() {
+  // Simulating an asynchronous operation
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      console.log("Async operation completed");
+      resolve();
+    }, 2000);
+  });
+}
+
 // Scrape images and text
 function scrapeData() {
   // console.log("Hello");
@@ -116,13 +126,26 @@ function scrapeData() {
     lenderName = "lender Name: ";
   }
 
-  const button = document.querySelector(".item-lender__contact");
-  button.click();
+  const button = document.querySelector(".item-lender__contact").querySelector(".button--block");
+  //await button.click();
+  button.addEventListener("click", async () => {
+    // Perform asynchronous operations here
+    await performAsyncOperation();
+    console.log("Button clicked and async operation completed");
+  });
+
+  // const buttons = document.getElementsByClassName(".button--block");
+
+  // // Trigger the click event for each button with the class "myButton"
+  // for (let i = 0; i < buttons.length; i++) {
+  //   buttons[i].click();
+  // }
 
   var phoneNumber = "";
   if (document.querySelector(".item-lender__contact").innerText) {
     phoneNumber =
-      "PhoneNumber: " + document.querySelector(".item-lender__contact").innerText[0];
+      "PhoneNumber: " +
+      document.querySelector(".item-lender__contact").innerText;
   } else {
     phoneNumber = "Phone Number: ";
   }
@@ -167,10 +190,10 @@ function scrapeData() {
   downloadText(data, textFilename);
 
   // Download images
-  imageSrcs.forEach((imageUrl, index) => {
-    const filename = `image_${index + 1}.jpg`;
-    downloadImage(imageUrl.src, filename);
-  });
+  // imageSrcs.forEach((imageUrl, index) => {
+  //   const filename = `image_${index + 1}.jpg`;
+  //   downloadImage(imageUrl.src, filename);
+  // });
 
   const data1 = "Data Scraped";
   chrome.runtime.sendMessage({ message: "data_extracted", data: data1 });
