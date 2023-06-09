@@ -69,6 +69,13 @@ function scrapeData() {
     document.querySelectorAll(".item-slider__image")
   ).map((image) => image.src);
 
+  var item = "";
+  if (document.querySelector(".categories").innerText) {
+    item = "item: " + document.querySelector(".categories").innerText;
+  } else {
+    item = "";
+  }
+
   var headingName = "";
   if (document.querySelector(".item__name").innerText) {
     headingName = "Heading: " + document.querySelector(".item__name").innerText;
@@ -95,18 +102,29 @@ function scrapeData() {
     description = "Description : ";
   }
   var rate = "";
-  if (document.querySelector(".item-rate__rate").innerText) {
-    rate = "Rate: " + document.querySelector(".item-rate__rate").innerText;
+  if (document.querySelector(".item-rate__sum").innerText) {
+    rate = document.querySelector(".item-rate__sum").innerText;
   } else {
-    rate = "Rate: ";
+    rate = "";
   }
 
-  var renterName = "";
+  var lenderName = "";
   if (document.querySelector(".item-lender__name").innerText) {
-    renterName =
-      "Renter Name: " + document.querySelector(".item-lender__name").innerText;
+    lenderName =
+      "lender Name: " + document.querySelector(".item-lender__name").innerText;
   } else {
-    renterName = "Renter Name: ";
+    lenderName = "lender Name: ";
+  }
+
+  const button = document.querySelector(".item-lender__contact");
+  button.click();
+
+  var phoneNumber = "";
+  if (document.querySelector(".item-lender__contact").innerText) {
+    phoneNumber =
+      "PhoneNumber: " + document.querySelector(".item-lender__contact").innerText[0];
+  } else {
+    phoneNumber = "Phone Number: ";
   }
 
   let imageName = "";
@@ -126,6 +144,8 @@ function scrapeData() {
 
   var data = "";
   data =
+    item +
+    "\n\n" +
     headingName +
     "\n\n" +
     condition +
@@ -136,7 +156,9 @@ function scrapeData() {
     "\n\n" +
     rate +
     "\n\n" +
-    renterName +
+    lenderName +
+    "\n\n" +
+    phoneNumber +
     "\n\n" +
     imageName;
 
