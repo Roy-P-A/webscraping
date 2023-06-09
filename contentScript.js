@@ -131,6 +131,7 @@ async function scrapeData() {
     phoneNumber =
       "PhoneNumber: " +
       document.querySelector(".item-lender__contact").innerText;
+     
   } else {
     phoneNumber = "Phone Number: ";
   }
@@ -166,7 +167,7 @@ async function scrapeData() {
     "\n\n" +
     lenderName +
     "\n\n" +
-    phoneNumber +
+    phoneNumber.replace("Send message","") +
     "\n\n" +
     imageName;
 
