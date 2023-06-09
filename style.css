@@ -44,3 +44,10 @@ body {
   background-color: #040dfb;
   transition: 0.7s;
 }
+
+.data-container1{
+  color: black;
+  background-color: #b5edba;
+  padding: 5px 20px 5px 20px;
+  border-radius: 5px;
+}
