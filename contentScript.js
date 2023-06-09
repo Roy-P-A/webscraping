@@ -62,22 +62,18 @@ function downloadText(content, filename) {
   URL.revokeObjectURL(url);
 }
 
-async function performAsyncOperation() {
-  // Simulating an asynchronous operation
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      console.log("Async operation completed");
-      resolve();
-    }, 2000);
-  });
+
+
+function wait(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 // Scrape images and text
-function scrapeData() {
+async function scrapeData() {
   // console.log("Hello");
-  const images = Array.from(
-    document.querySelectorAll(".item-slider__image")
-  ).map((image) => image.src);
+  // const images = Array.from(
+  //   document.querySelectorAll(".item-slider__image")
+  // ).map((image) => image.src);
 
   var item = "";
   if (document.querySelector(".categories").innerText) {
@@ -127,19 +123,8 @@ function scrapeData() {
   }
 
   const button = document.querySelector(".item-lender__contact").querySelector(".button--block");
-  //await button.click();
-  button.addEventListener("click", async () => {
-    // Perform asynchronous operations here
-    await performAsyncOperation();
-    console.log("Button clicked and async operation completed");
-  });
-
-  // const buttons = document.getElementsByClassName(".button--block");
-
-  // // Trigger the click event for each button with the class "myButton"
-  // for (let i = 0; i < buttons.length; i++) {
-  //   buttons[i].click();
-  // }
+  button.click();
+  await  wait(1000);
 
   var phoneNumber = "";
   if (document.querySelector(".item-lender__contact").innerText) {
