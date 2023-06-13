@@ -1,57 +1,5 @@
 // contentScript.js
 
-function downloadImage(url, filename) {
-  fetch(url)
-    .then((response) => response.blob())
-    .then((blob) => {
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = filename;
-      link.click();
-      URL.revokeObjectURL(url);
-    });
-}
-
-// function downloadImage(url, filename) {
-//   fetch(url)
-//     .then((response) => response.arrayBuffer())
-//     .then((buffer) => {
-//       const blob = new Blob([buffer], { type: "image/png" });
-//       const url = URL.createObjectURL(blob);
-//       const link = document.createElement("a");
-//       link.href = url;
-//       link.download = filename;
-//       link.click();
-//       URL.revokeObjectURL(url);
-//     })
-//     .catch((error) => {
-//       console.error('Error downloading image:', error);
-//     });
-// }
-
-function downloadImage(url, filename) {
-  fetch(url, {
-    headers: {
-      Accept:
-        "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
-    },
-  })
-    .then((response) => response.arrayBuffer())
-    .then((buffer) => {
-      const blob = new Blob([buffer], { type: "image/png" });
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = filename;
-      link.click();
-      URL.revokeObjectURL(url);
-    })
-    .catch((error) => {
-      console.error("Error downloading image:", error);
-    });
-}
-
 function downloadText(content, filename) {
   const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
   const url = URL.createObjectURL(blob);
@@ -62,18 +10,13 @@ function downloadText(content, filename) {
   URL.revokeObjectURL(url);
 }
 
-
-
 function wait(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 // Scrape images and text
 async function scrapeData() {
-  // console.log("Hello");
-  // const images = Array.from(
-  //   document.querySelectorAll(".item-slider__image")
-  // ).map((image) => image.src);
+
 
   var item = "";
   if (document.querySelector(".categories").innerText) {
@@ -122,16 +65,26 @@ async function scrapeData() {
     lenderName = "lender Name: ";
   }
 
-  const button = document.querySelector(".item-lender__contact").querySelector(".button--block");
-  button.click();
-  await  wait(1000);
+  const button = document
+    .querySelector(".item-lender__contact")
+    .querySelector(".button--block");
+  if (button) {
+    button.click();
+  } else {
+  }
+
+  // button.click();
+  await wait(1000);
 
   var phoneNumber = "";
   if (document.querySelector(".item-lender__contact").innerText) {
-    phoneNumber =
-      "PhoneNumber: " +
-      document.querySelector(".item-lender__contact").innerText;
-     
+    if (button) {
+      phoneNumber =
+        "PhoneNumber: " +
+        document.querySelector(".item-lender__contact").innerText;
+    } else {
+      phoneNumber = "";
+    }
   } else {
     phoneNumber = "Phone Number: ";
   }
@@ -167,7 +120,7 @@ async function scrapeData() {
     "\n\n" +
     lenderName +
     "\n\n" +
-    phoneNumber.replace("Send message","") +
+    phoneNumber.replace("Send message", "") +
     "\n\n" +
     imageName;
 
@@ -175,11 +128,6 @@ async function scrapeData() {
   const textFilename = "text_content.txt";
   downloadText(data, textFilename);
 
-  // Download images
-  // imageSrcs.forEach((imageUrl, index) => {
-  //   const filename = `image_${index + 1}.jpg`;
-  //   downloadImage(imageUrl.src, filename);
-  // });
 
   const data1 = "Data Scraped";
   chrome.runtime.sendMessage({ message: "data_extracted", data: data1 });
