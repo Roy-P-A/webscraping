@@ -19,46 +19,46 @@ async function scrapeData() {
 
 
   var item = "";
-  if (document.querySelector(".categories").innerText) {
+  if (document.querySelector(".categories")) {
     item = "item: " + document.querySelector(".categories").innerText;
   } else {
     item = "";
   }
 
   var headingName = "";
-  if (document.querySelector(".item__name").innerText) {
+  if (document.querySelector(".item__name")) {
     headingName = "Heading: " + document.querySelector(".item__name").innerText;
   } else {
     headingName = "";
   }
   var condition = "";
-  if (document.querySelector(".item__condition").innerText) {
+  if (document.querySelector(".item__condition")) {
     condition = document.querySelector(".item__condition").innerText;
   } else {
     condition = "";
   }
   var age = "";
-  if (document.querySelector(".item__age").innerText) {
+  if (document.querySelector(".item__age")) {
     age = document.querySelector(".item__age").innerText;
   } else {
     age = "";
   }
   var description = "";
-  if (document.querySelector(".item__description").innerText) {
+  if (document.querySelector(".item__description")) {
     description =
       "Description: " + document.querySelector(".item__description").innerText;
   } else {
     description = "Description : ";
   }
   var rate = "";
-  if (document.querySelector(".item-rate__sum").innerText) {
+  if (document.querySelector(".item-rate__sum")) {
     rate = document.querySelector(".item-rate__sum").innerText;
   } else {
     rate = "";
   }
 
   var lenderName = "";
-  if (document.querySelector(".item-lender__name").innerText) {
+  if (document.querySelector(".item-lender__name")) {
     lenderName =
       "lender Name: " + document.querySelector(".item-lender__name").innerText;
   } else {
@@ -73,11 +73,11 @@ async function scrapeData() {
   } else {
   }
 
-  // button.click();
+ 
   await wait(1000);
 
   var phoneNumber = "";
-  if (document.querySelector(".item-lender__contact").innerText) {
+  if (document.querySelector(".item-lender__contact")) {
     if (button) {
       phoneNumber =
         "PhoneNumber: " +
