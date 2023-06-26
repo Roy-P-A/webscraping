@@ -18,16 +18,19 @@ function sendPostRequest(url, payload) {
   fetch(url, {
     method: "POST",
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
     },
     body: JSON.stringify(payload),
   })
     .then((response) => {
-      if (response.ok) {
+      if (response.status == 201) {
         // Request successful, handle response
+
         return response.json();
       } else {
         // Request failed, handle error
+        const data1 = "Failed";
+        chrome.runtime.sendMessage({ message: "data_extracted", data: data1 });
         throw new Error("Error: " + response.status);
       }
     })
@@ -87,8 +90,7 @@ async function scrapeData() {
 
   var lenderName = "";
   if (document.querySelector(".item-lender__name")) {
-    lenderName =
-      document.querySelector(".item-lender__name").innerText;
+    lenderName = document.querySelector(".item-lender__name").innerText;
   } else {
     lenderName = " ";
   }
@@ -137,13 +139,13 @@ async function scrapeData() {
     "\n\n" +
     headingName +
     "\n\n" +
-    condition.replace("Condition:","") +
+    condition.replace("Condition:", "") +
     "\n\n" +
-    age.replace("Age:","") +
+    age.replace("Age:", "") +
     "\n\n" +
     description +
     "\n\n" +
-    rate.replace("Lend for:","") +
+    rate.replace("Lend for:", "") +
     "\n\n" +
     lenderName +
     "\n\n" +
@@ -180,11 +182,11 @@ async function scrapeData() {
     subCategory: item.split("/")[1],
     categoryType: item.split("/")[2],
     name: headingName,
-    conditionValue: condition.replace("Condition:",""),
-    age: age.replace("Age:",""),
+    conditionValue: condition.replace("Condition:", ""),
+    age: age.replace("Age:", ""),
     description: description,
     preExistingDefects: "",
-    lendRate: rate.replace("Lend for:",""),
+    lendRate: rate.replace("Lend for:", ""),
     userId: 0,
     media: imageName,
     availabilityStatus: "",
