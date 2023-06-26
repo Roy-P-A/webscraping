@@ -18,10 +18,8 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     const receivedData = request.data;
     const url = "http://localhost:8080/product/createProductScrap";
     sendPostRequest(url, receivedData);
-    chrome.runtime.sendMessage({ message: "update_popup", data: receivedData });
   }
 });
-
 
 function sendPostRequest(url, payload) {
   fetch(url, {
@@ -32,26 +30,18 @@ function sendPostRequest(url, payload) {
     body: JSON.stringify(payload),
   })
     .then((response) => {
-      if (response.ok) {
-        // Request successful, handle response
-
-        return response.json();
+      if (response.status === 201) {
+        // Request successful (status code 201)
+        const data3 = "Success";
+        chrome.runtime.sendMessage({ message: "update_popup", data: data3 });
       } else {
         // Request failed, handle error
-        const data1 = "Failed";
-        chrome.runtime.sendMessage({ message: "update_popup", data: data1 });
         throw new Error("Error: " + response.status);
       }
     })
-    .then((responseData) => {
-      // Handle the response data
-      console.log(responseData);
-      const data1 = "Success";
-      chrome.runtime.sendMessage({ message: "update_popup", data: data1 });
-    })
     .catch((error) => {
-      // Handle any errors
+      // Handle any errors (failure)
       const data1 = "Failed";
-      chrome.runtime.sendMessage({ message: "update_popup", data: data1 });
+      chrome.runtime.sendMessage({ message: "update_popup", data: error });
     });
 }
