@@ -151,7 +151,7 @@ async function scrapeData() {
     "\n\n" +
     imageName;
 
-  // Download text content
+  //Download text content
   // const textFilename = "text_content.txt";
   // downloadText(data, textFilename);
 
@@ -180,7 +180,7 @@ async function scrapeData() {
     subCategory: item.split("/")[1],
     categoryType: item.split("/")[2],
     name: headingName,
-    conditionValue: replace("Condition:",""),
+    conditionValue: condition.replace("Condition:",""),
     age: age.replace("Age:",""),
     description: description,
     preExistingDefects: "",
