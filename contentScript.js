@@ -161,7 +161,8 @@ async function scrapeData() {
     verificationStatus: "VERIFIED",
     source: "",
     userName: lenderName,
-    mobileNumber: phoneNumber.replace("Send message", ""),
+    //mobileNumber: phoneNumber.replace("Send message", ""),
+    mobileNumber: phoneNumber,
   };
 
 
