@@ -51,7 +51,7 @@ function sendPostRequest(url, payload) {
     })
     .catch((error) => {
       // Handle any errors
-      const data1 = error;
+      const data1 = "Failed";
       chrome.runtime.sendMessage({ message: "update_popup", data: data1 });
     });
 }
