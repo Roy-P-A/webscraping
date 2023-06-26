@@ -152,47 +152,47 @@ async function scrapeData() {
     imageName;
 
   // Download text content
-  const textFilename = "text_content.txt";
-  downloadText(data, textFilename);
+  // const textFilename = "text_content.txt";
+  // downloadText(data, textFilename);
 
   const url = "http://localhost:8080/product/createProductScrap";
-  const payload = {
-    category: "string",
-    subCategory: "string",
-    categoryType: "string",
-    name: "string",
-    conditionValue: "string",
-    age: 0,
-    description: "string",
-    preExistingDefects: "string",
-    lendRate: "string",
-    userId: 5,
-    media: ["string"],
-    availabilityStatus: "AVAILABLE",
-    verificationStatus: "VERIFIED",
-    source: "string",
-    userName: "string",
-    mobileNumber: "string",
-  };
-
   // const payload = {
-  //   category: item.split("/")[0],
-  //   subCategory: item.split("/")[1],
-  //   categoryType: item.split("/")[2],
-  //   name: headingName,
-  //   conditionValue: replace("Condition:",""),
-  //   age: age.replace("Age:",""),
-  //   description: description,
-  //   preExistingDefects: "",
-  //   lendRate: rate.replace("Lend for:",""),
-  //   userId: 0,
-  //   media: imageName,
-  //   availabilityStatus: "",
-  //   verificationStatus: "",
-  //   source: "",
-  //   userName: lenderName,
-  //   mobileNumber: phoneNumber.replace("Send message", ""),
+  //   category: "string",
+  //   subCategory: "string",
+  //   categoryType: "string",
+  //   name: "string",
+  //   conditionValue: "string",
+  //   age: 0,
+  //   description: "string",
+  //   preExistingDefects: "string",
+  //   lendRate: "string",
+  //   userId: 5,
+  //   media: ["string"],
+  //   availabilityStatus: "AVAILABLE",
+  //   verificationStatus: "VERIFIED",
+  //   source: "string",
+  //   userName: "string",
+  //   mobileNumber: "string",
   // };
+
+  const payload = {
+    category: item.split("/")[0],
+    subCategory: item.split("/")[1],
+    categoryType: item.split("/")[2],
+    name: headingName,
+    conditionValue: replace("Condition:",""),
+    age: age.replace("Age:",""),
+    description: description,
+    preExistingDefects: "",
+    lendRate: rate.replace("Lend for:",""),
+    userId: 0,
+    media: imageName,
+    availabilityStatus: "",
+    verificationStatus: "",
+    source: "",
+    userName: lenderName,
+    mobileNumber: phoneNumber.replace("Send message", ""),
+  };
   sendPostRequest(url, payload);
 
   // const data1 = "Data Scraped";

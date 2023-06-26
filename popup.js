@@ -18,10 +18,14 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 
     // Update the DOM of the popup.html
     const dataContainer = document.getElementById("data-container");
-    if (receivedData == "") {
-    } else {
+    if (receivedData == "Success") {
       dataContainer.textContent = receivedData;
       dataContainer.classList.add("data-container1");
+    } else if(receivedData == "Failed"){
+      dataContainer.textContent = receivedData;
+      dataContainer.classList.add("data-container2");
+    }else{
+
     }
   }
 });
