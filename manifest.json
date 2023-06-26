@@ -5,7 +5,7 @@
   "permissions": ["downloads","scripting","tabs","activeTab"],
   "content_scripts": [
     {
-      "matches": ["https://www.borrowme.com/*"],
+      "matches": ["https://www.borrowme.com/*","http://localhost:8080/product/createProductScrap"],
       "js": ["contentScript.js"]
     }
   ],

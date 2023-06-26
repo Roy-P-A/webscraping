@@ -14,40 +14,6 @@ function wait(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-function sendPostRequest(url, payload) {
-  fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(payload),
-  })
-    .then((response) => {
-      if (response.status == 201) {
-        // Request successful, handle response
-
-        return response.json();
-      } else {
-        // Request failed, handle error
-        const data1 = "Failed";
-        chrome.runtime.sendMessage({ message: "data_extracted", data: data1 });
-        throw new Error("Error: " + response.status);
-      }
-    })
-    .then((responseData) => {
-      // Handle the response data
-      console.log(responseData);
-      const data1 = "Success";
-      chrome.runtime.sendMessage({ message: "data_extracted", data: data1 });
-    })
-    .catch((error) => {
-      // Handle any errors
-      console.error("Error:", error);
-      const data1 = "Failed";
-      chrome.runtime.sendMessage({ message: "data_extracted", data: data1 });
-    });
-}
-
 // Scrape images and text
 async function scrapeData() {
   var item = "";
@@ -133,48 +99,48 @@ async function scrapeData() {
     imageName.push(i);
   }
 
-  var data = "";
-  data =
-    item +
-    "\n\n" +
-    headingName +
-    "\n\n" +
-    condition.replace("Condition:", "") +
-    "\n\n" +
-    age.replace("Age:", "") +
-    "\n\n" +
-    description +
-    "\n\n" +
-    rate.replace("Lend for:", "") +
-    "\n\n" +
-    lenderName +
-    "\n\n" +
-    phoneNumber.replace("Send message", "") +
-    "\n\n" +
-    imageName;
+  // var data = "";
+  // data =
+  //   item +
+  //   "\n\n" +
+  //   headingName +
+  //   "\n\n" +
+  //   condition.replace("Condition:", "") +
+  //   "\n\n" +
+  //   age.replace("Age:", "") +
+  //   "\n\n" +
+  //   description +
+  //   "\n\n" +
+  //   rate.replace("Lend for:", "") +
+  //   "\n\n" +
+  //   lenderName +
+  //   "\n\n" +
+  //   phoneNumber.replace("Send message", "") +
+  //   "\n\n" +
+  //   imageName;
 
   //Download text content
   // const textFilename = "text_content.txt";
   // downloadText(data, textFilename);
 
-  const url = "http://localhost:8080/product/createProductScrap";
+
   // const payload = {
   //   category: "string",
   //   subCategory: "string",
   //   categoryType: "string",
-  //   name: "string",
-  //   conditionValue: "string",
+  //   name: "manu",
+  //   conditionValue: "martinpa",
   //   age: 0,
-  //   description: "string",
+  //   description: "hello",
   //   preExistingDefects: "string",
-  //   lendRate: "string",
-  //   userId: 5,
-  //   media: ["string"],
+  //   lendRate: "500",
+  //   userId: 0,
+  //   media: ["sdd"],
   //   availabilityStatus: "AVAILABLE",
   //   verificationStatus: "VERIFIED",
   //   source: "string",
-  //   userName: "string",
-  //   mobileNumber: "string",
+  //   userName: "martin",
+  //   mobileNumber: "81130",
   // };
 
   const payload = {
@@ -183,22 +149,26 @@ async function scrapeData() {
     categoryType: item.split("/")[2],
     name: headingName,
     conditionValue: condition.replace("Condition:", ""),
-    age: age.replace("Age:", ""),
+    //age: age.replace("Age:", ""),
+    age: 0,
     description: description,
     preExistingDefects: "",
     lendRate: rate.replace("Lend for:", ""),
     userId: 0,
     media: imageName,
-    availabilityStatus: "",
-    verificationStatus: "",
+    availabilityStatus: "AVAILABLE",
+    verificationStatus: "VERIFIED",
     source: "",
     userName: lenderName,
     mobileNumber: phoneNumber.replace("Send message", ""),
   };
-  sendPostRequest(url, payload);
+
 
   // const data1 = "Data Scraped";
   // chrome.runtime.sendMessage({ message: "data_extracted", data: data1 });
+
+  const data1 = payload;
+      chrome.runtime.sendMessage({ message: "data_extracted", data: data1 });
 }
 
 // Listen for messages from the background script
