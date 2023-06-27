@@ -25,12 +25,18 @@ async function scrapeData() {
   } else {
     condition = "";
   }
-  var age = "";
-
+  var age = 0;
+  const regex = /\d+/;
   if (document.querySelector(".item__age")) {
-    age = document.querySelector(".item__age").innerText;
+    const match = document.querySelector(".item__age").innerText.match(regex);
+    if (match) {
+      const integer1 = parseInt(match[0], 10);
+      age = (integer1 - 1) * 12 + 10;
+    } else {
+      age = 0;
+    }
   } else {
-    age = "";
+    age = 0;
   }
   var description = "";
   if (document.querySelector(".item__description")) {
@@ -93,7 +99,8 @@ async function scrapeData() {
     categoryType: item.split("/")[2].trim(),
     name: headingName.trim(),
     conditionValue: condition.replace("Condition:", "").trim(),
-    age: age.replace("Age:", "").trim(),
+    //age: age.replace("Age:", "").trim(),
+    age: age,
     description: description.trim(),
     preExistingDefects: "",
     lendRate: rate.replace("Lend for:", "").trim(),
