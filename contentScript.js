@@ -1,7 +1,5 @@
 // contentScript.js
 
-
-
 function wait(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
@@ -30,7 +28,7 @@ async function scrapeData() {
   var age = 0;
 
   if (document.querySelector(".item__age")) {
-    if (document.querySelector(".item__age").innerText == "Less Than 1 Year") {
+    if (document.querySelector(".item__age").innerText == "Age: Less Than 1 Year") {
       age = 10;
     } else {
       age = 0;
@@ -107,14 +105,12 @@ async function scrapeData() {
     description: description,
     preExistingDefects: "",
     lendRate: rate.replace("Lend for:", ""),
-    //lendRate: "",
     userId: 0,
     media: imageName,
     availabilityStatus: "AVAILABLE",
     verificationStatus: "VERIFIED",
     source: "",
     userName: lenderName,
-    //mobileNumber: phoneNumber.replace("Send message", ""),
     mobileNumber: phoneNumber,
   };
 
