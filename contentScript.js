@@ -25,16 +25,12 @@ async function scrapeData() {
   } else {
     condition = "";
   }
-  var age = 0;
+  var age = "";
 
   if (document.querySelector(".item__age")) {
-    if (document.querySelector(".item__age").innerText == "Age: Less Than 1 Year") {
-      age = 10;
-    } else {
-      age = 0;
-    }
+    age = document.querySelector(".item__age").innerText;
   } else {
-    age = 0;
+    age = "";
   }
   var description = "";
   if (document.querySelector(".item__description")) {
@@ -91,27 +87,23 @@ async function scrapeData() {
     imageName.push(i);
   }
 
- 
-
   const payload = {
-    category: item.split("/")[0],
-    subCategory: item.split("/")[1],
-    categoryType: item.split("/")[2],
-    name: headingName,
-    conditionValue: condition.replace("Condition:", ""),
-    //age: age.replace("Age:", ""),
-    // age: 0,
-    age: age,
-    description: description,
+    category: item.split("/")[0].trim(),
+    subCategory: item.split("/")[1].trim(),
+    categoryType: item.split("/")[2].trim(),
+    name: headingName.trim(),
+    conditionValue: condition.replace("Condition:", "").trim(),
+    age: age.replace("Age:", "").trim(),
+    description: description.trim(),
     preExistingDefects: "",
-    lendRate: rate.replace("Lend for:", ""),
-    userId: 0,
+    lendRate: rate.replace("Lend for:", "").trim(),
+    userId: 1,
     media: imageName,
     availabilityStatus: "AVAILABLE",
     verificationStatus: "VERIFIED",
-    source: "",
-    userName: lenderName,
-    mobileNumber: phoneNumber,
+    source: "borrowme",
+    userName: lenderName.trim(),
+    mobileNumber: phoneNumber.trim(),
   };
 
   const data1 = payload;
