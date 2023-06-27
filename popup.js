@@ -63,9 +63,11 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     if (receivedData == "") {
     } else if (receivedData == "Success") {
       dataContainer.textContent = receivedData;
+      dataContainer.classList.remove("data-container2");
       dataContainer.classList.add("data-container1");
     } else {
       dataContainer.textContent = receivedData;
+      dataContainer.classList.remove("data-container1");
       dataContainer.classList.add("data-container2");
     }
   }

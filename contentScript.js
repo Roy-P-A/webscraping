@@ -99,7 +99,6 @@ async function scrapeData() {
     categoryType: item.split("/")[2].trim(),
     name: headingName.trim(),
     conditionValue: condition.replace("Condition:", "").trim(),
-    //age: age.replace("Age:", "").trim(),
     age: age,
     description: description.trim(),
     preExistingDefects: "",
@@ -115,6 +114,13 @@ async function scrapeData() {
 
   const data1 = payload;
   chrome.runtime.sendMessage({ message: "data_extracted", data: data1 });
+  const buttonReset = document
+    .querySelector(".item-lender__contact")
+    .querySelector(".button--block");
+  if (buttonReset) {
+    buttonReset.click();
+  } else {
+  }
 }
 
 // Listen for messages from the background script
