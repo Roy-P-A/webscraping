@@ -1,14 +1,6 @@
 // contentScript.js
 
-function downloadText(content, filename) {
-  const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement("a");
-  link.href = url;
-  link.download = filename;
-  link.click();
-  URL.revokeObjectURL(url);
-}
+
 
 function wait(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -35,11 +27,16 @@ async function scrapeData() {
   } else {
     condition = "";
   }
-  var age = "";
+  var age = 0;
+
   if (document.querySelector(".item__age")) {
-    age = document.querySelector(".item__age").innerText;
+    if (document.querySelector(".item__age").innerText == "Less Than 1 Year") {
+      age = 10;
+    } else {
+      age = 0;
+    }
   } else {
-    age = "";
+    age = 0;
   }
   var description = "";
   if (document.querySelector(".item__description")) {
@@ -82,9 +79,7 @@ async function scrapeData() {
     phoneNumber = "";
   }
 
-  //let imageName = "";
   let imageName = [];
-
   const tempElement = document.createElement("div");
   tempElement.innerHTML = document.querySelector("body").innerHTML;
 
@@ -95,53 +90,10 @@ async function scrapeData() {
   );
 
   for (let i of imageSrcs) {
-    //imageName += "\n\n" + i;
     imageName.push(i);
   }
 
-  // var data = "";
-  // data =
-  //   item +
-  //   "\n\n" +
-  //   headingName +
-  //   "\n\n" +
-  //   condition.replace("Condition:", "") +
-  //   "\n\n" +
-  //   age.replace("Age:", "") +
-  //   "\n\n" +
-  //   description +
-  //   "\n\n" +
-  //   rate.replace("Lend for:", "") +
-  //   "\n\n" +
-  //   lenderName +
-  //   "\n\n" +
-  //   phoneNumber.replace("Send message", "") +
-  //   "\n\n" +
-  //   imageName;
-
-  //Download text content
-  // const textFilename = "text_content.txt";
-  // downloadText(data, textFilename);
-
-
-  // const payload = {
-  //   category: "string",
-  //   subCategory: "string",
-  //   categoryType: "string",
-  //   name: "manu",
-  //   conditionValue: "martinpa",
-  //   age: 0,
-  //   description: "hello",
-  //   preExistingDefects: "string",
-  //   lendRate: "500",
-  //   userId: 0,
-  //   media: ["sdd"],
-  //   availabilityStatus: "AVAILABLE",
-  //   verificationStatus: "VERIFIED",
-  //   source: "string",
-  //   userName: "martin",
-  //   mobileNumber: "81130",
-  // };
+ 
 
   const payload = {
     category: item.split("/")[0],
@@ -150,11 +102,12 @@ async function scrapeData() {
     name: headingName,
     conditionValue: condition.replace("Condition:", ""),
     //age: age.replace("Age:", ""),
-    age: 0,
+    // age: 0,
+    age: age,
     description: description,
     preExistingDefects: "",
-    // lendRate: rate.replace("Lend for:", ""),
-    lendRate: "",
+    lendRate: rate.replace("Lend for:", ""),
+    //lendRate: "",
     userId: 0,
     media: imageName,
     availabilityStatus: "AVAILABLE",
@@ -165,12 +118,8 @@ async function scrapeData() {
     mobileNumber: phoneNumber,
   };
 
-
-  // const data1 = "Data Scraped";
-  // chrome.runtime.sendMessage({ message: "data_extracted", data: data1 });
-
   const data1 = payload;
-      chrome.runtime.sendMessage({ message: "data_extracted", data: data1 });
+  chrome.runtime.sendMessage({ message: "data_extracted", data: data1 });
 }
 
 // Listen for messages from the background script
