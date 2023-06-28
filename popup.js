@@ -40,13 +40,13 @@ document.addEventListener("DOMContentLoaded", function () {
 // document.addEventListener("DOMContentLoaded", function () {
 //   const scrapeButton1 = document.getElementById("refreshButton");
 //   scrapeButton1.addEventListener("click", function () {
-//     //chrome.runtime.reload();
+//     chrome.runtime.reload();
 //     // chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
 //     //   chrome.runtime.reload();
 //     // });
-//     chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
-//       chrome.tabs.reload(tabs[0].id);
-//     });
+//     // chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+//     //   chrome.tabs.reload(tabs[0].id);
+//     // });
     
 //   });
 // });

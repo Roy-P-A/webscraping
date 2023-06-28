@@ -1,5 +1,9 @@
 // background.js
 
+function wait(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 chrome.action.onClicked.addListener(function (tab) {
   chrome.scripting.executeScript(
     {
@@ -45,5 +49,7 @@ function sendPostRequest(url, payload) {
       // Handle any errors (failure)
       const data1 = "Failed";
       chrome.runtime.sendMessage({ message: "update_popup", data: data1 });
+      // await wait(2000);
+      // chrome.runtime.reload();
     });
 }
