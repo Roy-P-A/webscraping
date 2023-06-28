@@ -98,7 +98,7 @@ async function scrapeData() {
     subCategory: item.split("/")[1].trim(),
     categoryType: item.split("/")[2].trim(),
     name: headingName.trim(),
-    conditionValue: condition.replace("Condition:", "").trim(),
+    conditionValue: condition.replace("Condition:", "").replace(",","").trim(),
     age: age,
     description: description.trim(),
     preExistingDefects: "",
